@@ -37,6 +37,8 @@ pub struct System {
     warranty_start: Option<String>,
     #[serde(default)]
     warranty_end: Option<String>,
+    #[serde(default)]
+    purchase_price: Option<String>,
 }
 
 impl std::fmt::Display for System {
@@ -64,6 +66,7 @@ impl Default for System {
             operating_system: Some(String::new()),
             warranty_start: Some(String::new()),
             warranty_end: Some(String::new()),
+            purchase_price: Some(String::new()),
             notes: Some(String::new()),
             server_model: String::new(),
         }
@@ -154,6 +157,14 @@ fn system_from_matches(_get_matches: &clap::ArgMatches, mut system: System) -> S
     match _get_matches.value_of("warranty-end"){
         Some(_value) => { 
             system.warranty_end = Some(_value.to_string());
+        },
+        None => { 
+            // Possibly check here for error?
+        }
+    }
+    match _get_matches.value_of("purchase-price"){
+        Some(_value) => { 
+            system.purchase_price = Some(_value.to_string());
         },
         None => { 
             // Possibly check here for error?
